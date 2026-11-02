@@ -1,6 +1,31 @@
-ocal PUSL = loadstring(game:HttpGet("https://secure.pandauth.com/pv4/lib"))()
+ocal function LoadPandaAuth()
+    local success, response = pcall(function()
+        return game:HttpGet("https://secure.pandauth.com/pv4/lib")
+    end)
+
+    if not success or not response then
+        warn("[DmaineHub] Failed to fetch PandaAuth library.")
+        return nil
+    end
+
+    local loadFunc, compileErr = loadstring(response)
+    if not loadFunc then
+        warn("[DmaineHub] PandaAuth compile error: " .. tostring(compileErr))
+        return nil
+    end
+
+    local runSuccess, lib = pcall(loadFunc)
+    if not runSuccess or not lib then
+        warn("[DmaineHub] PandaAuth execution error: " .. tostring(lib))
+        return nil
+    end
+
+    return lib
+end
+
+local PUSL = LoadPandaAuth()
 if not PUSL or type(PUSL.configure) ~= "function" then
-    return warn("[DmaineHub] PandaAuth library failed to load.")
+    return warn("[DmaineHub] PandaAuth initialization failed.")
 end
 
 PUSL.configure({
@@ -174,6 +199,7 @@ local function PromptKeyUI()
     end)
 end
 
+-- Check cached key first
 local cached = GetSavedKey()
 if cached then
     task.spawn(function()
