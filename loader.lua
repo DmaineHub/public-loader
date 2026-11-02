@@ -43,7 +43,7 @@ local KEY_FILE = "DmaineHub_Key.txt"
 local DISCORD_URL = "https://discord.gg/k3ZnkD6eb"
 
 local LOGO_LOCAL_PATH = "DmaineHub_Logo.png"
-local LOGO_REMOTE_URL = "https://raw.githubusercontent.com/HenceEthic/public-loader/main/logo.png"
+local LOGO_REMOTE_URL = "https://raw.githubusercontent.com/DmaineHub/public-loader/main/logo.png"
 
 local function CleanKeyString(raw)
     if not raw then return "" end
