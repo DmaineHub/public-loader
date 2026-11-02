@@ -1,4 +1,4 @@
-ocal function LoadPandaAuth()
+local function LoadPandaAuth()
     local success, response = pcall(function()
         return game:HttpGet("https://secure.pandauth.com/pv4/lib")
     end)
@@ -199,7 +199,6 @@ local function PromptKeyUI()
     end)
 end
 
--- Check cached key first
 local cached = GetSavedKey()
 if cached then
     task.spawn(function()
